@@ -20,11 +20,10 @@ public class BasesJDBC {
 				statement.executeUpdate( requete );
 			}
 
-			requete = "CREATE TABLE citation ("
-					+"annee int,"
-					+"citation varchar(256),"
-					+"auteur varchar(20),"
-					+"PRIMARY KEY(citation))";
+			requete = "CREATE TABLE ROUTES ("
+					+"origine int,"
+					+"destination int,"
+					+"PRIMARY KEY(orignine))";
 			try ( Statement statement = connection.createStatement() ) {
 				statement.executeUpdate( requete );
 			}
