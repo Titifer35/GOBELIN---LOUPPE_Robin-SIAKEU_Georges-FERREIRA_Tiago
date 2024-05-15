@@ -37,7 +37,7 @@ public class BasesJDBC {
 				statement.executeUpdate( requete );
 			}
 		}
-	 }
+	}
 
 }
 
