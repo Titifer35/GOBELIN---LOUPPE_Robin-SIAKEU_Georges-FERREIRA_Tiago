@@ -1,0 +1,7 @@
+Bordereau de commandes
+25/12/2021
+3
+gutenberg@divers.fit : 3
+kubrick@cinema.fit : 2
+polo@divers.fit : 9
+4,2,5,3

@@ -1,0 +1,36 @@
+Bordereau de commandes
+18/01/2021
+32
+lincoln@divers.fit : 8
+borg@tennis.fit : 7
+karabatic@sports.fit : 4
+callas@musique.fit : 8
+scott@cinema.fit : 6
+kubrick@cinema.fit : 8
+graf@tennis.fit : 6
+harrison@musique.fit : 4
+williams@cinema.fit : 3
+nadal@tennis.fit : 8
+dedale@divers.fit : 6
+vonn@sports.fit : 2
+mandela@divers.fit : 7
+confucius@litterature.fit : 3
+nobel@sciences.fit : 5
+lacoste@tennis.fit : 5
+jackson@musique.fit : 2
+voltaire@litterature.fit : 6
+van_gogh@arts.fit : 3
+audiard@cinema.fit : 6
+corbusier@divers.fit : 2
+eiffel@divers.fit : 7
+noah@tennis.fit : 9
+goscinny@arts.fit : 4
+ronaldo@football.fit : 6
+armstrong@musique.fit : 2
+jordan@sports.fit : 9
+evert@tennis.fit : 3
+stenmark@sports.fit : 8
+rummenigge@football.fit : 9
+navratilova@tennis.fit : 3
+cleopatre@divers.fit : 2
+9,80,28,96,15,83,3,82,81,99,59,44,86,92,62,61,34,16,54,60,39,41,2,37,78,67,85,13,21,87,73,79,50,89,48,10,20,77

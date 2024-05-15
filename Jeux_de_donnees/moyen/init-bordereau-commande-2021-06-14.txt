@@ -1,0 +1,24 @@
+Bordereau de commandes
+14/06/2021
+20
+ronaldo@football.fit : 9
+dali@arts.fit : 3
+lincoln@divers.fit : 2
+beckam@football.fit : 8
+callas@musique.fit : 1
+dunant@divers.fit : 3
+page@musique.fit : 4
+curie@sciences.fit : 3
+caroll@litterature.fit : 3
+ali@sports.fit : 5
+diderot@litterature.fit : 7
+graf@tennis.fit : 6
+turing@sciences.fit : 2
+goscinny@arts.fit : 7
+warhol@arts.fit : 4
+burton@cinema.fit : 2
+blier@cinema.fit : 7
+connery@cinema.fit : 7
+edberg@tennis.fit : 5
+luther-king@divers.fit : 3
+17,5,10,11,6,20,4,14

@@ -1,0 +1,22 @@
+Bordereau de commandes
+03/06/2021
+18
+blier@cinema.fit : 3
+curie@sciences.fit : 6
+brel@musique.fit : 5
+armstrong@divers.fit : 9
+scott@cinema.fit : 8
+edberg@tennis.fit : 1
+lincoln@divers.fit : 2
+vinci@arts.fit : 4
+bono@musique.fit : 5
+copernic@sciences.fit : 7
+dali@arts.fit : 7
+berry@musique.fit : 6
+ali@sports.fit : 7
+goscinny@arts.fit : 4
+eco@litterature.fit : 1
+watt@sciences.fit : 1
+dunant@divers.fit : 9
+beckam@football.fit : 4
+2,10,13,9,8,1,15,12

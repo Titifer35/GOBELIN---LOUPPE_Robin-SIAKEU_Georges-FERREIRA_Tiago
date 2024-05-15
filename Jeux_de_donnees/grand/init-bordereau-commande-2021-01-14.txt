@@ -1,0 +1,15 @@
+Bordereau de commandes
+14/01/2021
+11
+diderot@litterature.fit : 4
+colomb@divers.fit : 7
+berry@musique.fit : 9
+eastwood@cinema.fit : 1
+burton@cinema.fit : 6
+lee@arts.fit : 9
+king@litterature.fit : 1
+joplin@musique.fit : 8
+freeman@cinema.fit : 2
+jordan@sports.fit : 6
+moliere@litterature.fit : 5
+96,21,19,58,32,42,86,88,49,69,61,17,35,22,90,64
