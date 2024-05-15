@@ -2,11 +2,12 @@ import java.sql.Statement;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class BasesJDBC {
 	
 //----------------------------------------------------------------------------------------------------------------------//
-	public static void DELETE(String[] args) throws Exception {
+	public static void DELETE(String[] args) throws SQLException, ClassNotFoundException {
 		Class.forName( "org.hsqldb.jdbcDriver" );
 		String url = "jdbc:hsqldb:file:database"+File.separator+"basic;shutdown=true";
 		String login = "sa";
@@ -26,7 +27,7 @@ public class BasesJDBC {
 	}
 
 //----------------------------------------------------------------------------------------------------------------------//
-	public static void CREATE(String[] args) throws Exception {
+	public static void CREATE(String[] args) throws SQLException, ClassNotFoundException {
 		Class.forName( "org.hsqldb.jdbcDriver" );
 		String url = "jdbc:hsqldb:file:database"+File.separator+"basic;shutdown=true";
 		String login = "sa";
