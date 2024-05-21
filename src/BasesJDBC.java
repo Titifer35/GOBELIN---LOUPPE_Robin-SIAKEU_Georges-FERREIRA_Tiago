@@ -68,8 +68,8 @@ public class BasesJDBC {
 //--------------------------------------------------------------------------------------------------------------------//
 	public static void main(String[] args) throws Exception {
 		BasesJDBC CREATE = new BasesJDBC();
-		CREATE.DELETE();
-		CREATE.CREATE();
+		CREATE.DELETE(args);
+		CREATE.CREATE(args);
 		System.out.println("CREATION DE LA BASE DE DONNéEs");
 	}
 }
