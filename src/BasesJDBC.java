@@ -23,7 +23,7 @@ public class BasesJDBC {
             }
         }
     }
-// siakeu Ferreira
+
     //----------------------------------------------------------------------------------------------------------------------//
     public static void CREATE(String[] args) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
