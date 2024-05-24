@@ -51,4 +51,5 @@ public class Route {
 		// Calculate distance (Euclidean distance)
 		return (int) Math.sqrt(Math.pow((xd - xo), 2) + Math.pow((yd - yo), 2));
 	}
+	
 }
