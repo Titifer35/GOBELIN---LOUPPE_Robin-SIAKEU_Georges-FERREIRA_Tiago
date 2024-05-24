@@ -17,20 +17,4 @@ public class Entrepot {
 		this.coutfixe = coutfixe;
 		this.stock = stock;
 	}
-	public int getIdentrepot() {
-		return identrepot;
-	}
-	public int getIdsite() {
-		return idsite;
-	}
-	public int getCoutfixe() {
-		return coutfixe;
-	}
-	public int getStock() {
-		return stock;
-	}
-	
-	
-
-
 }
