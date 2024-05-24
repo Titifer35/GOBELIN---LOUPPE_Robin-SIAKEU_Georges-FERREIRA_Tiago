@@ -60,13 +60,14 @@ public class BasesJDBC {
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(requete);
             }
-        }
-    }
+		}
+	}
 
-    //----------------------------------------------------------------------------------------------------------------------//
-    public static void main(String[] args) throws Exception {
-        DELETE(args);
-        CREATE(args);
-        System.out.println("CREATION DE LA BASE DE DONNÉES");
-    }
+//--------------------------------------------------------------------------------------------------------------------//
+	public static void main(String[] args) throws Exception {
+		BasesJDBC CREATE = new BasesJDBC();
+		CREATE.DELETE(args);
+		CREATE.CREATE(args);
+		System.out.println("CREATION DE LA BASE DE DONNéEs");
+	}
 }
