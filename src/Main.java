@@ -1,96 +1,97 @@
-import java.io.FileWriter;
-import java.io.Writer;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.util.List;
 import java.io.File;
 import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
-		// Print banner
-		System.out.println("+------------------------------+");
-		System.out.println("|           GOBLIN             |");
-		System.out.println("+------------------------------+");
+    public static void main(String[] args) throws Exception {
+        System.out.println("+------------------------------+");
+        System.out.println("|                              |");
+        System.out.println("|          GOBLIN              |");
+        System.out.println("|                              |");
+        System.out.println("+------------------------------+\n");
 
-		Scanner scanner = new Scanner(System.in);
-		int choixUtilisateur = 0;
-		LectureCSV gestionnaireCSV = new LectureCSV();
-		String dossierChoisi = "";
-		String nomBordereau = "";
+        Scanner scannerUtilisateur = new Scanner(System.in);
+        int choixDeLUtilisateur = 0;
+        LectureCSV gestionnaireDeCSV = new LectureCSV();
+        String dossierSelectionne = "";
+        String nomDuBordereau = "";
 
-		BasesJDBC.main(null); // Initialisation de la base de données
+        BasesJDBC.main(null);
 
-		while (choixUtilisateur != 1 && choixUtilisateur != 2 && choixUtilisateur != 3) {
-			System.out.println("Sur quel fichier souhaitez-vous travailler ?");
-			System.out.println(" 1 : Petite taille");
-			System.out.println(" 2 : Taille moyenne");
-			System.out.println(" 3 : Un peu plus grand");
-			choixUtilisateur = scanner.nextInt();
+        while (choixDeLUtilisateur < 1 || choixDeLUtilisateur > 3) {
+            System.out.println("Choisissez le fichier sur lequel vous souhaitez travailler :");
+            System.out.println(" 1 : Petite taille");
+            System.out.println(" 2 : Taille moyenne");
+            System.out.println(" 3 : Un peu plus grand");
+            System.out.print("Votre choix (1-3) : ");
+            while (!scannerUtilisateur.hasNextInt()) {
+                System.out.println("Veuillez entrer un nombre valide !");
+                scannerUtilisateur.next();
+            }
+            choixDeLUtilisateur = scannerUtilisateur.nextInt();
 
-			switch (choixUtilisateur) {
-			case 1:
-				dossierChoisi = "Petite taille";
-				break;
-			case 2:
-				dossierChoisi = "Taille moyenne";
-				break;
-			case 3:
-				dossierChoisi = "Un peu plus grand";
-				break;
-			default:
-				System.out.println("Choix non valide, veuillez réessayer.");
-				break;
-			}
-		}
+            switch (choixDeLUtilisateur) {
+                case 1: dossierSelectionne = "Petite taille"; break;
+                case 2: dossierSelectionne = "Taille moyenne"; break;
+                case 3: dossierSelectionne = "Un peu plus grand"; break;
+                default:
+                    System.out.println("Choix non valide, veuillez réessayer.");
+                    choixDeLUtilisateur = 0; // Réinitialiser le choix
+            }
+        }
 
-		System.out.println("Veuillez saisir le nom du bordereau :");
-		nomBordereau = scanner.next();
-		String cheminBordereau = dossierChoisi + File.separator + nomBordereau;
-		File fichierBordereau = new File(cheminBordereau);
+        System.out.print("\nVeuillez saisir le nom du bordereau : ");
+        nomDuBordereau = scannerUtilisateur.next();
+        String cheminDuBordereau = dossierSelectionne + File.separator + nomDuBordereau;
+        File fichierBordereau = new File(cheminDuBordereau);
 
-		while (!fichierBordereau.exists()) {
-			System.out.println("Le bordereau saisi n'existe pas, veuillez réessayer :");
-			nomBordereau = scanner.next();
-			cheminBordereau = dossierChoisi + File.separator + nomBordereau;
-			fichierBordereau = new File(cheminBordereau);
-		}
+        while (!fichierBordereau.exists()) {
+            System.out.print("Le bordereau saisi n'existe pas. Veuillez réessayer : ");
+            nomDuBordereau = scannerUtilisateur.next();
+            cheminDuBordereau = dossierSelectionne + File.separator + nomDuBordereau;
+            fichierBordereau = new File(cheminDuBordereau);
+        }
 
-		String fichierSites = dossierChoisi + File.separator + "init-sites.csv";
-		String fichierClients = dossierChoisi + File.separator + "init-clients.csv";
-		String fichierEntrepots = dossierChoisi + File.separator + "init-entrepots.csv";
-		String fichierRoutes = dossierChoisi + File.separator + "init-routes.csv";
+        String cheminFichierSites = dossierSelectionne + File.separator + "init-sites.csv";
+        String cheminFichierClients = dossierSelectionne + File.separator + "init-clients.csv";
+        String cheminFichierEntrepots = dossierSelectionne + File.separator + "init-entrepots.csv";
+        String cheminFichierRoutes = dossierSelectionne + File.separator + "init-routes.csv";
 
-		try {
-			gestionnaireCSV.importSitesToDatabase(fichierSites);
-			gestionnaireCSV.importClientsToDatabase(fichierClients, cheminBordereau);
-			gestionnaireCSV.importEntrepotsToDatabase(fichierEntrepots, cheminBordereau);
-			gestionnaireCSV.importRoutesToDatabase(fichierRoutes);
-		} catch (Exception e) {
-			System.out.println("Erreur lors du chargement des données : " + e.getMessage());
-			return;
-		}
+        try {
+            gestionnaireDeCSV.importSitesToDatabase(cheminFichierSites);
+            gestionnaireDeCSV.importClientsToDatabase(cheminFichierClients, cheminDuBordereau);
+            gestionnaireDeCSV.importEntrepotsToDatabase(cheminFichierEntrepots, cheminDuBordereau);
+            gestionnaireDeCSV.importRoutesToDatabase(cheminFichierRoutes);
+            System.out.println("\nLes données ont été chargées avec succès.");
+        } catch (Exception e) {
+            System.out.println("Erreur lors du chargement des données : " + e.getMessage());
+            scannerUtilisateur.close();
+            return;
+        }
 
-		CreationJson.main(null);
-		//TrouverSolution.main(null);
+        CreationJson.main(null); 
+        
 
-		choixUtilisateur = 0;
-		while (choixUtilisateur != 1 && choixUtilisateur != 2) {
-			System.out.println("Voulez-vous valider la solution ? 1 : Oui / 2 : Non");
-			choixUtilisateur = scanner.nextInt();
-			if (choixUtilisateur == 1) {
-				System.out.println("Merci d'avoir validé notre solution.");
-				break;
-			} else if (choixUtilisateur == 2) {
-				System.out.println("Vous n'avez pas validé la solution, veuillez relancer le programme pour réessayer.");
-				break;
-			} else {
-				System.out.println("Saisie incorrecte, veuillez réessayer.");
-			}
-		}
+        System.out.println("\nVoulez-vous valider la solution ?");
+        while (true) {
+            System.out.print("Entrez 1 pour Oui ou 2 pour Non : ");
+            while (!scannerUtilisateur.hasNextInt()) {
+                System.out.println("Veuillez entrer un nombre valide !");
+                scannerUtilisateur.next();
+            }
+            choixDeLUtilisateur = scannerUtilisateur.nextInt();
+            if (choixDeLUtilisateur == 1) {
+                System.out.println("Merci d'avoir validé notre solution.");
+                break;
+            } else if (choixDeLUtilisateur == 2) {
+                System.out.println("Vous n'avez pas validé la solution. Veuillez relancer le programme pour réessayer.");
+                break;
+            } else {
+                System.out.println("Saisie incorrecte, veuillez réessayer.");
+            }
+        }
 
-		System.out.println("À bientôt.");
-		scanner.close();
-	}
+        System.out.println("À bientôt.");
+        scannerUtilisateur.close();
+    }
 }

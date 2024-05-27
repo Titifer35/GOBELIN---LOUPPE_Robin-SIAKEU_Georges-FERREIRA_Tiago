@@ -144,7 +144,7 @@ public class CreationJson {
 				}
 			}
 
-			//liste des entrepots disponibles
+			
 			List<Integer> entrepots_disponibles = new ArrayList<>();
 			requete = "SELECT Idsite FROM ENTREPOTS "
 					+ "WHERE DISPONIBLE = 1";
@@ -156,7 +156,7 @@ public class CreationJson {
 				}
 			}
 
-			//liste des clients demandants
+			
 			List<Integer> clients_demandants = new ArrayList<>();
 			requete = "SELECT Idsite FROM CLIENTS WHERE demande != 0";
 			try (Statement statement = connection.createStatement()) {
@@ -167,7 +167,7 @@ public class CreationJson {
 				}
 			}
 			
-			//Cost matrix
+			
 			Plus_court_chem pcm = new Plus_court_chem();
 			int [][] matrice_totale = pcm.plus_court_chemin(sites);
 			int [][] cost_matrix;
@@ -186,7 +186,7 @@ public class CreationJson {
 		String fichier="Donnees.json";
 		Gson json0=new GsonBuilder().setPrettyPrinting().create();
 		Writer ecriture=new FileWriter(fichier);
-		creationJSON crea=new creationJSON();
+		CreationJson crea=new CreationJson();
 		Json json= new Json(crea.getCapacites(), crea.getCoutFixeEntrepot(), crea.getDemandes(), crea.getCostmatrix(), crea.getNbEntrepots(), crea.getNbClients());
 		json0.toJson(json,ecriture);
 		ecriture.flush();
