@@ -31,20 +31,26 @@ public class Main {
             choixDeLUtilisateur = scannerUtilisateur.nextInt();
 
             switch (choixDeLUtilisateur) {
-                case 1: dossierSelectionne = "Petite taille"; break;
-                case 2: dossierSelectionne = "Taille moyenne"; break;
-                case 3: dossierSelectionne = "Un peu plus grand"; break;
+                case 1: dossierSelectionne = "Jeux_de_donnees" + File.separator + "petit"; break;
+                case 2: dossierSelectionne = "Jeux_de_donnees" + File.separator + "moyen"; break;
+                case 3: dossierSelectionne = "Jeux_de_donnees" + File.separator + "grand"; break;
                 default:
                     System.out.println("Choix non valide, veuillez réessayer.");
                     choixDeLUtilisateur = 0; // Réinitialiser le choix
             }
         }
 
-        System.out.print("\nVeuillez saisir le nom du bordereau : ");
+        System.out.print("\nVeuillez saisir le nom du bordereau (ex. init-bordereau-commande-2021-12-25.txt) : ");
         nomDuBordereau = scannerUtilisateur.next();
         String cheminDuBordereau = dossierSelectionne + File.separator + nomDuBordereau;
         File fichierBordereau = new File(cheminDuBordereau);
 
+        while (!fichierBordereau.exists()) {
+            System.out.print("Le bordereau saisi n'existe pas. Veuillez réessayer : ");
+            nomDuBordereau = scannerUtilisateur.next();
+            cheminDuBordereau = dossierSelectionne + File.separator + nomDuBordereau;
+            fichierBordereau = new File(cheminDuBordereau);
+        }
         while (!fichierBordereau.exists()) {
             System.out.print("Le bordereau saisi n'existe pas. Veuillez réessayer : ");
             nomDuBordereau = scannerUtilisateur.next();
