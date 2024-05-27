@@ -98,7 +98,6 @@ public class LectureCSV {
         String password = "";
         List<Integer> openEntrepots = new LinkedList<>();
 
-        // Load warehouse availability from the bordereau
         try (BufferedReader reader = new BufferedReader(new FileReader(bordereau))) {
             String lastLine = null, line;
             while ((line = reader.readLine()) != null) {
@@ -126,7 +125,7 @@ public class LectureCSV {
                 statement.setBoolean(5, isAvailable);
                 statement.executeUpdate();
 
-                entrepots.add(new Entrepot(idEntrepot, Integer.parseInt(nextLine[1]), Integer.parseInt(nextLine[2]), Integer.parseInt(nextLine[3]), isAvailable));
+                this.entrepots.add(new Entrepot(idEntrepot, Integer.parseInt(nextLine[1]), Integer.parseInt(nextLine[2]), Integer.parseInt(nextLine[3]), isAvailable));
             }
         } catch (Exception e) {
             e.printStackTrace();
