@@ -40,6 +40,7 @@ public class BasesJDBC {
                              "Idsite INT, " +
                              "nom VARCHAR(30), " +
                              "mail VARCHAR(30), " +
+                             "disponible boolean, "+
                              "PRIMARY KEY(Idsite), " +
                              "FOREIGN KEY(Idsite) REFERENCES SITES(Idsite));" +
                              
@@ -53,6 +54,7 @@ public class BasesJDBC {
                              "CREATE TABLE ROUTES (" +
                              "origine INT, " +
                              "destination INT, " +
+                             "distance int, "+
                              "PRIMARY KEY(origine, destination), " +
                              "FOREIGN KEY(origine) REFERENCES SITES(Idsite), " +
                              "FOREIGN KEY(destination) REFERENCES SITES(Idsite));";

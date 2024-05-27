@@ -17,6 +17,8 @@ public class Main {
         String nomDuBordereau = "";
 
         BasesJDBC.main(null);
+        
+        
 
         while (choixDeLUtilisateur < 1 || choixDeLUtilisateur > 3) {
             System.out.println("Choisissez le fichier sur lequel vous souhaitez travailler :");
