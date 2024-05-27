@@ -24,7 +24,7 @@ public class BasesJDBC {
         }
     }
 
-    //----------------------------------------------------------------------------------------------------------------------//
+//----------------------------------------------------------------------------------------------------------------------//
     public static void CREATE(String[] args) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
         String url = "jdbc:hsqldb:file:database" + File.separator + "basic;shutdown=true";
@@ -32,30 +32,30 @@ public class BasesJDBC {
         String password = "";
         try (Connection connection = DriverManager.getConnection(url, login, password)) {
             String requete = "CREATE TABLE SITES (" +
-                             "Id_site INT PRIMARY KEY, " +
+                             "Idsite INT PRIMARY KEY, " +
                              "x INT, " +
                              "y INT);" +
                              
                              "CREATE TABLE CLIENTS (" +
-                             "Id_site INT, " +
+                             "Idsite INT, " +
                              "nom VARCHAR(30), " +
-                             "prenom VARCHAR(30), " +
-                             "PRIMARY KEY(Id_site), " +
-                             "FOREIGN KEY(Id_site) REFERENCES SITES(Id_site));" +
+                             "mail VARCHAR(30), " +
+                             "PRIMARY KEY(Idsite), " +
+                             "FOREIGN KEY(Idsite) REFERENCES SITES(Idsite));" +
                              
                              "CREATE TABLE ENTREPOTS (" +
-                             "Id_entrepot INT PRIMARY KEY, " +
-                             "Id_site INT, " +
-                             "cout_fixe INT, " +
+                             "Identrepot INT PRIMARY KEY, " +
+                             "Idsite INT, " +
+                             "coutfixe INT, " +
                              "stock INT, " +
-                             "FOREIGN KEY(Id_site) REFERENCES SITES(Id_site));" +
+                             "FOREIGN KEY(Idsite) REFERENCES SITES(Idsite));" +
                              
                              "CREATE TABLE ROUTES (" +
                              "origine INT, " +
                              "destination INT, " +
                              "PRIMARY KEY(origine, destination), " +
-                             "FOREIGN KEY(origine) REFERENCES SITES(Id_site), " +
-                             "FOREIGN KEY(destination) REFERENCES SITES(Id_site));";
+                             "FOREIGN KEY(origine) REFERENCES SITES(Idsite), " +
+                             "FOREIGN KEY(destination) REFERENCES SITES(Idsite));";
                              
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(requete);
