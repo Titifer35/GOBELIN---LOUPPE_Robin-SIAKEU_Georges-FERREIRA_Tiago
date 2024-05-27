@@ -43,10 +43,10 @@ public class LectureCSV {
             String[] nextLine;
 
             while ((nextLine = csvReader.readNext()) != null) {
-                int id_site = Integer.parseInt(nextLine[0]);
+                int idsite = Integer.parseInt(nextLine[0]);
                 int x = Integer.parseInt(nextLine[1]);
                 int y = Integer.parseInt(nextLine[2]);
-                requete = "INSERT INTO SITES(idsite, x, y) VALUES (" + id_site + "," + x + "," + y + ");";
+                requete = "INSERT INTO SITES(idsite, x, y) VALUES (" + idsite + "," + x + "," + y + ");";
 
                 try (Statement statement = connection.createStatement()) {
                     statement.executeUpdate(requete);
