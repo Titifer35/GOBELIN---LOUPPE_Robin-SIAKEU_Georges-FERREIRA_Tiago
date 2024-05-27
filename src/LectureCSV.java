@@ -1,12 +1,22 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.sql.*;
-import java.util.*;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
-import com.opencsv.CSVParserBuilder;
-import com.opencsv.CSVReaderBuilder;
+import com.opencsv.*;
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
+import java.sql.SQLException;
 
 public class LectureCSV {
 
@@ -20,172 +30,181 @@ public class LectureCSV {
         this.entrepots = new LinkedList<>();
     }
 
-    public void importSitesFromCSV(String filePath) throws ClassNotFoundException, SQLException {
+    public void importSitesToDatabase(String siteFolder) throws ClassNotFoundException, SQLException, CsvValidationException, NumberFormatException, IOException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:file:database" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
-        
-        try (Connection connection = DriverManager.getConnection(url, login, password);
-             CSVReader csvReader = new CSVReaderBuilder(new FileReader(filePath))
-                                     .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
-                                     .withSkipLines(1).build()) {
-
-            String insertQuery = "INSERT INTO SITES(id_site, x, y) VALUES (?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(insertQuery);
+        String requete = "";
+        try (Connection connection = DriverManager.getConnection(url, login, password)) {
+            CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+            FileReader reader = new FileReader(siteFolder);
+            CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(parser).withSkipLines(1).build();
             String[] nextLine;
 
             while ((nextLine = csvReader.readNext()) != null) {
-                statement.setInt(1, Integer.parseInt(nextLine[0]));
-                statement.setInt(2, Integer.parseInt(nextLine[1]));
-                statement.setInt(3, Integer.parseInt(nextLine[2]));
-                statement.executeUpdate();
+                int id_site = Integer.parseInt(nextLine[0]);
+                int x = Integer.parseInt(nextLine[1]);
+                int y = Integer.parseInt(nextLine[2]);
+                requete = "INSERT INTO SITES(idsite, x, y) VALUES (" + id_site + "," + x + "," + y + ");";
+
+                try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(requete);
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    public void importClientsFromCSV(String clientFilePath, String orderFilePath) throws ClassNotFoundException, SQLException {
+    public void importClientsToDatabase(String clientFolder, String bordereau) throws ClassNotFoundException, SQLException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:file:database" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
+        String requete = "";
         Map<String, Integer> clientOrders = new HashMap<>();
-
-        // Load orders from the bordereau file
-        try (BufferedReader reader = new BufferedReader(new FileReader(orderFilePath))) {
-            List<String> content = new ArrayList<>();
+        List<String> fileContents = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(bordereau));
             String line;
             while ((line = reader.readLine()) != null) {
-                content.add(line);
+                fileContents.add(line);
             }
-            int numberOfClients = Integer.parseInt(content.get(2));
-            for (int i = 0; i < numberOfClients; i++) {
-                String[] order = content.get(i + 3).split(" : ");
-                clientOrders.put(order[0], Integer.parseInt(order[1]));
-            }
+            reader.close();
+        } catch (Exception exep) {
+            exep.printStackTrace();
         }
-
-        try (Connection connection = DriverManager.getConnection(url, login, password);
-             CSVReader csvReader = new CSVReaderBuilder(new FileReader(clientFilePath))
-                                     .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
-                                     .withSkipLines(1).build()) {
-
-            String insertQuery = "INSERT INTO CLIENTS(mail, id_site, nom, demande) VALUES (?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(insertQuery);
+        int clientCount = Integer.parseInt(fileContents.get(2));
+        for (int i = 0; i < clientCount; i++) {
+            String[] order = fileContents.get(i + 3).split(" : ");
+            String email = order[0];
+            int demand = Integer.parseInt(order[1]);
+            clientOrders.put(email, demand);
+        }
+        try {
+            CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+            FileReader reader = new FileReader(clientFolder);
+            CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(parser).withSkipLines(1).build();
             String[] nextLine;
-
             while ((nextLine = csvReader.readNext()) != null) {
+                String nom = nextLine[0];
                 String mail = nextLine[1];
-                statement.setString(1, mail);
-                statement.setInt(2, Integer.parseInt(nextLine[2]));
-                statement.setString(3, nextLine[0]);
-                statement.setInt(4, clientOrders.getOrDefault(mail, 0));
-                statement.executeUpdate();
-
-                clients.add(new Client(nextLine[0], mail, Integer.parseInt(nextLine[2]), clientOrders.getOrDefault(mail, 0)));
+                int idsite = Integer.parseInt(nextLine[2]);
+                int demande = clientOrders.getOrDefault(mail, 0);
+                this.clients.add(new Client(nom, mail, idsite, demande));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exep) {
+            exep.printStackTrace();
+        }
+        try (Connection connection = DriverManager.getConnection(url, login, password)) {
+            for (Client client : this.clients) {
+                requete = "INSERT INTO CLIENTS(mail, idsite, nom, demande) VALUES ('" + client.getMail() + "'," + client.getIdsite() + ",'" + client.getNom() + "'," + client.getDemande() + ");";
+                try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(requete);
+                }
+            }
         }
     }
-
-    public void importEntrepotsFromCSV(String filePath, String bordereau) throws SQLException, ClassNotFoundException {
+//----------------------------------------------------------------------------------------------------------------------------------------------//
+    
+    public void importEntrepotsToDatabase(String warehouseFolder, String manifest) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:file:database" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
+        String requete = "";
         List<Integer> openEntrepots = new LinkedList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(bordereau))) {
-            String lastLine = null, line;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(manifest));
+            String line;
             while ((line = reader.readLine()) != null) {
-                lastLine = line;
+                if (!line.isEmpty()) {
+                    String[] availability = line.split(",");
+                    for (String id : availability) {
+                        openEntrepots.add(Integer.parseInt(id));
+                    }
+                }
             }
-            Arrays.stream(lastLine.split(",")).forEach(id -> openEntrepots.add(Integer.parseInt(id)));
+            reader.close();
+        } catch (Exception exep) {
+            exep.printStackTrace();
         }
-
-        try (Connection connection = DriverManager.getConnection(url, login, password);
-             CSVReader csvReader = new CSVReaderBuilder(new FileReader(filePath))
-                                     .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
-                                     .withSkipLines(1).build()) {
-
-            String insertQuery = "INSERT INTO ENTREPOTS(id_entrepot, id_site, cout_utilisation, stock, disponible) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(insertQuery);
+        try {
+            CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+            FileReader reader = new FileReader(warehouseFolder);
+            CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(parser).withSkipLines(1).build();
             String[] nextLine;
-
             while ((nextLine = csvReader.readNext()) != null) {
-                int idEntrepot = Integer.parseInt(nextLine[0]);
-                boolean isAvailable = openEntrepots.contains(idEntrepot);
-                statement.setInt(1, idEntrepot);
-                statement.setInt(2, Integer.parseInt(nextLine[1]));
-                statement.setInt(3, Integer.parseInt(nextLine[2]));
-                statement.setInt(4, Integer.parseInt(nextLine[3]));
-                statement.setBoolean(5, isAvailable);
-                statement.executeUpdate();
-
-                this.entrepots.add(new Entrepot(idEntrepot, Integer.parseInt(nextLine[1]), Integer.parseInt(nextLine[2]), Integer.parseInt(nextLine[3]), isAvailable));
+                int identrepot = Integer.parseInt(nextLine[0]);
+                int id_site = Integer.parseInt(nextLine[1]);
+                int utilization_cost = Integer.parseInt(nextLine[2]);
+                int stock = Integer.parseInt(nextLine[3]);
+                boolean available = openEntrepots.contains(identrepot);
+                this.entrepots.add(new Entrepot(identrepot, id_site, utilization_cost, stock, available));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try (Connection connection = DriverManager.getConnection(url, login, password)) {
+            for (Entrepot entrepot : this.entrepots) {
+                requete = "INSERT INTO ENTREPOTS(id_entrepot, id_site, stock, cout_utilisation, disponible) VALUES (" + entrepot.getIdentrepot() + "," + entrepot.getIdsite() + "," + entrepot.getStock() + "," + entrepot.getCoutfixe() + "," + entrepot.getDisponible() + ");";
+                try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(requete);
+                }
+            }
+        }
     }
+   
+//----------------------------------------------------------------------------------------------------------------------------------------------//
 
-    public void importRoutesFromCSV(String filePath) throws SQLException, ClassNotFoundException {
+    public void importRoutesToDatabase(String routesFile) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:file:database" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
-
-        try (Connection connection = DriverManager.getConnection(url, login, password);
-             CSVReader csvReader = new CSVReaderBuilder(new FileReader(filePath))
-                                     .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
-                                     .withSkipLines(1).build()) {
-
-            String insertQuery = "INSERT INTO ROUTES(origine, destination, distance) VALUES (?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(insertQuery);
+        String requete = "";
+        try (Connection connection = DriverManager.getConnection(url, login, password)) {
+            CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+            FileReader reader = new FileReader(routesFile);
+            CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(parser).withSkipLines(1).build();
             String[] nextLine;
-
+            int originX;
+            int originY;
+            int destinationX;
+            int destinationY;
             while ((nextLine = csvReader.readNext()) != null) {
                 int origin = Integer.parseInt(nextLine[0]);
                 int destination = Integer.parseInt(nextLine[1]);
-                int distance = calculateDistance(connection, origin, destination);
-
-                statement.setInt(1, origin);
-                statement.setInt(2, destination);
-                statement.setInt(3, distance);
-                statement.executeUpdate();
-
-                routes.add(new Route(origin, destination, 0, 0, 0, 0));  // Coords not used here
+                String query = "SELECT x, y FROM SITES WHERE id_site = " + origin + ";";
+                try (Statement statement = connection.createStatement()) {
+                    try (ResultSet resultSet = statement.executeQuery(query)) {
+                        resultSet.next();
+                        originX = resultSet.getInt("x");
+                        originY = resultSet.getInt("y");
+                    }
+                }
+                query = "SELECT x, y FROM SITES WHERE id_site = " + destination + ";";
+                try (Statement statement = connection.createStatement()) {
+                    try (ResultSet resultSet = statement.executeQuery(query)) {
+                        resultSet.next();
+                        destinationX = resultSet.getInt("x");
+                        destinationY = resultSet.getInt("y");
+                    }
+                }
+                this.routes.add(new Route(origin, destination, originX, originY, destinationX, destinationY));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private int calculateDistance(Connection connection, int origin, int destination) throws SQLException {
-        int xo = 0, yo = 0, xd = 0, yd = 0;
-
-        String query = "SELECT x, y FROM SITES WHERE id_site = ?";
-        PreparedStatement statement = connection.prepareStatement(query);
-        
-        statement.setInt(1, origin);
-        try (ResultSet rs = statement.executeQuery()) {
-            if (rs.next()) {
-                xo = rs.getInt("x");
-                yo = rs.getInt("y");
+        for (Route route : this.routes) {
+            int origine = route.getOrigine();
+            int destination = route.getDestination();
+            int distance = route.getDistance();
+            requete = "INSERT INTO ROUTES(origine, destination, distance) VALUES (" + origine + "," + destination + "," + distance + ");";
+            try (Connection connection = DriverManager.getConnection(url, login, password)) {
+                try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(requete);
+                }
             }
         }
-
-        statement.setInt(1, destination);
-        try (ResultSet rs = statement.executeQuery()) {
-            if (rs.next()) {
-                xd = rs.getInt("x");
-                yd = rs.getInt("y");
-            }
-        }
-
-        return (int) Math.sqrt(Math.pow(xd - xo, 2) + Math.pow(yd - yo, 2));
     }
 }

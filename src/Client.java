@@ -2,20 +2,28 @@
 public class Client {
 
 	private String nom;
-	private String prenom;
+	private String mail;
 	private int idsite;
+	private int demande;
+	
 
+	public Client(String nom, String mail, int idsite, int demande) {
+		this.nom = nom;
+		this.mail = mail;
+		this.idsite = idsite;
+		this.demande = demande;
+	}
 	public String getNom() {
 		return nom;
 	}
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public String getPrenom() {
-		return prenom;
+	public String getMail() {
+		return mail;
 	}
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 	public int getIdsite() {
 		return idsite;
@@ -23,14 +31,12 @@ public class Client {
 	public void setIdsite(int idsite) {
 		this.idsite = idsite;
 	}
-	/**
-	 * @param nom
-	 * @param prenom
-	 * @param idsite
-	 */
-	public Client(String nom, String prenom, int idsite) {
-		this.nom = nom;
-		this.prenom = prenom;
-		this.idsite = idsite;
+	public int getDemande() {
+		return demande;
 	}
+	public void setDemande(int demande) {
+		this.demande = demande;
+	}
+	
+
 }
