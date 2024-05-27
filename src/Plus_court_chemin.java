@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Plus_court_chem {
+public class Plus_court_chemin {
 	
 	static class Edge {
         int target;
@@ -30,7 +30,7 @@ public class Plus_court_chem {
         return distances;
 	}
 
-	private int[] dijkstra(List<List<Plus_court_chem.Edge>> sites, int i) {
+	private int[] dijkstra(List<List<Plus_court_chemin.Edge>> sites, int i) {
 		// TODO Auto-generated method stub
 		return null;
 	}
