@@ -1,3 +1,5 @@
+package BasedeDonnée;
+
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +9,7 @@ import java.sql.Statement;
 import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import AlgoDijkstra.CheminPlusCourt;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.Writer;
