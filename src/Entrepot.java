@@ -1,8 +1,8 @@
 
 public class Entrepot {
 	
-	private int identrepot;
-	private int idsite;
+	private int Identrepot;
+	private int Idsite;
 	private int coutfixe;
 	private int stock;
 	private boolean disponible;
@@ -12,25 +12,25 @@ public class Entrepot {
 	 * @param coutfixe
 	 * @param stock
 	 */
-	public Entrepot(int identrepot, int idsite, int coutfixe, int stock, boolean disponible) {
-		this.identrepot = identrepot;
-		this.idsite = idsite;
+	public Entrepot(int Identrepot, int Idsite, int coutfixe, int stock, boolean disponible) {
+		this.Identrepot = Identrepot;
+		this.Idsite = Idsite;
 		this.coutfixe = coutfixe;
 		this.stock = stock;
 		this.disponible = disponible;
 	}
 
 	public int getIdentrepot() {
-		return identrepot;
+		return Identrepot;
 	}
-	public void setIdentrepot(int identrepot) {
-		this.identrepot = identrepot;
+	public void setIdentrepot(int Identrepot) {
+		this.Identrepot = Identrepot;
 	}
 	public int getIdsite() {
-		return idsite;
+		return Idsite;
 	}
-	public void setIdsite(int idsite) {
-		this.idsite = idsite;
+	public void setIdsite(int Idsite) {
+		this.Idsite = Idsite;
 	}
 	public int getCoutfixe() {
 		return coutfixe;

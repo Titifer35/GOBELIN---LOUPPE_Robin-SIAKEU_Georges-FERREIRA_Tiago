@@ -167,7 +167,7 @@ public class CreationJson {
 			}
 			
 			
-			Plus_court_chem pcm = new Plus_court_chem();
+			CheminPlusCourt pcm = new CheminPlusCourt();
 			int [][] matrice_totale = pcm.plus_court_chemin(sites);
 			int [][] cost_matrix;
 			cost_matrix = new int [entrepots_disponibles.size()][clients_demandants.size()];

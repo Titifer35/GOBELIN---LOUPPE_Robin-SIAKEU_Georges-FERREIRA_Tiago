@@ -3,14 +3,14 @@ public class Client {
 
 	private String nom;
 	private String mail;
-	private int idsite;
+	private int Idsite;
 	private int demande;
 	
 
-	public Client(String nom, String mail, int idsite, int demande) {
+	public Client(String nom, String mail, int Idsite, int demande) {
 		this.nom = nom;
 		this.mail = mail;
-		this.idsite = idsite;
+		this.Idsite = Idsite;
 		this.demande = demande;
 	}
 	public String getNom() {
@@ -26,10 +26,10 @@ public class Client {
 		this.mail = mail;
 	}
 	public int getIdsite() {
-		return idsite;
+		return Idsite;
 	}
-	public void setIdsite(int idsite) {
-		this.idsite = idsite;
+	public void setIdsite(int Idsite) {
+		this.Idsite = Idsite;
 	}
 	public int getDemande() {
 		return demande;

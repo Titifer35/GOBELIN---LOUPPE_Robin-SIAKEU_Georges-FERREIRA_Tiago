@@ -40,6 +40,7 @@ public class BasesJDBC {
                              "Idsite INT, " +
                              "nom VARCHAR(30), " +
                              "mail VARCHAR(30), " +
+                             "demande INT, " +
                              "disponible boolean, "+
                              "PRIMARY KEY(Idsite), " +
                              "FOREIGN KEY(Idsite) REFERENCES SITES(Idsite));" +
@@ -68,8 +69,8 @@ public class BasesJDBC {
 //--------------------------------------------------------------------------------------------------------------------//
 	public static void main(String[] args) throws Exception {
 		BasesJDBC CREATE = new BasesJDBC();
-		CREATE.DELETE(args);
-		CREATE.CREATE(args);
+		CREATE.DELETE(null);
+		CREATE.CREATE(null);
 		System.out.println("CREATION DE LA BASE DE DONNéEs");
 	}
 }

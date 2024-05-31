@@ -1,7 +1,7 @@
 
 public class Site {
 	
-	private int idsite;
+	private int Idsite;
 	private int x;
 	private int y;
 	/**
@@ -9,16 +9,16 @@ public class Site {
 	 * @param x
 	 * @param y
 	 */
-	public Site(int idsite, int x, int y) {
-		this.idsite = idsite;
+	public Site(int Idsite, int x, int y) {
+		this.Idsite = Idsite;
 		this.x = x;
 		this.y = y;
 	}
 	public int getIdsite() {
-		return idsite;
+		return Idsite;
 	}
-	public void setIdsite(int idsite) {
-		this.idsite = idsite;
+	public void setIdsite(int Idsite) {
+		this.Idsite = Idsite;
 	}
 	public int getX() {
 		return x;
