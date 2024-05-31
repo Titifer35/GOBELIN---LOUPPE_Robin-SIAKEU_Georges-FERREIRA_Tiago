@@ -32,7 +32,7 @@ public class LectureCSV {
 
     public void importSitesToDatabase(String siteFolder) throws ClassNotFoundException, SQLException, CsvValidationException, NumberFormatException, IOException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         String requete = "";
@@ -46,7 +46,7 @@ public class LectureCSV {
                 int idsite = Integer.parseInt(nextLine[0]);
                 int x = Integer.parseInt(nextLine[1]);
                 int y = Integer.parseInt(nextLine[2]);
-                requete = "INSERT INTO SITES(idsite, x, y) VALUES (" + idsite + "," + x + "," + y + ");";
+                requete = "INSERT INTO SITES(Idsite, x, y) VALUES (" + idsite + "," + x + "," + y + ");";
 
                 try (Statement statement = connection.createStatement()) {
                     statement.executeUpdate(requete);
@@ -57,7 +57,7 @@ public class LectureCSV {
 
     public void importClientsToDatabase(String clientFolder, String bordereau) throws ClassNotFoundException, SQLException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         String requete = "";
@@ -97,7 +97,7 @@ public class LectureCSV {
         }
         try (Connection connection = DriverManager.getConnection(url, login, password)) {
             for (Client client : this.clients) {
-                requete = "INSERT INTO CLIENTS(mail, idsite, nom, demande) VALUES ('" + client.getMail() + "'," + client.getIdsite() + ",'" + client.getNom() + "'," + client.getDemande() + ");";
+                requete = "INSERT INTO CLIENTS(mail, Idsite, nom, demande) VALUES ('" + client.getMail() + "'," + client.getIdsite() + ",'" + client.getNom() + "'," + client.getDemande() + ");";
                 try (Statement statement = connection.createStatement()) {
                     statement.executeUpdate(requete);
                 }
@@ -108,7 +108,7 @@ public class LectureCSV {
     
     public void importEntrepotsToDatabase(String warehouseFolder, String manifest) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         String requete = "";
@@ -146,7 +146,7 @@ public class LectureCSV {
         }
         try (Connection connection = DriverManager.getConnection(url, login, password)) {
             for (Entrepot entrepot : this.entrepots) {
-                requete = "INSERT INTO ENTREPOTS(id_entrepot, id_site, stock, cout_utilisation, disponible) VALUES (" + entrepot.getIdentrepot() + "," + entrepot.getIdsite() + "," + entrepot.getStock() + "," + entrepot.getCoutfixe() + "," + entrepot.getDisponible() + ");";
+                requete = "INSERT INTO ENTREPOTS(Identrepot, Idsite, stock, coutfixe, disponible) VALUES (" + entrepot.getIdentrepot() + "," + entrepot.getIdsite() + "," + entrepot.getStock() + "," + entrepot.getCoutfixe() + "," + entrepot.getDisponible() + ");";
                 try (Statement statement = connection.createStatement()) {
                     statement.executeUpdate(requete);
                 }
@@ -158,7 +158,7 @@ public class LectureCSV {
 
     public void importRoutesToDatabase(String routesFile) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         String requete = "";
@@ -174,7 +174,7 @@ public class LectureCSV {
             while ((nextLine = csvReader.readNext()) != null) {
                 int origin = Integer.parseInt(nextLine[0]);
                 int destination = Integer.parseInt(nextLine[1]);
-                String query = "SELECT x, y FROM SITES WHERE id_site = " + origin + ";";
+                String query = "SELECT x, y FROM SITES WHERE Idsite = " + origin + ";";
                 try (Statement statement = connection.createStatement()) {
                     try (ResultSet resultSet = statement.executeQuery(query)) {
                         resultSet.next();
@@ -182,7 +182,7 @@ public class LectureCSV {
                         originY = resultSet.getInt("y");
                     }
                 }
-                query = "SELECT x, y FROM SITES WHERE id_site = " + destination + ";";
+                query = "SELECT x, y FROM SITES WHERE Idsite = " + destination + ";";
                 try (Statement statement = connection.createStatement()) {
                     try (ResultSet resultSet = statement.executeQuery(query)) {
                         resultSet.next();
