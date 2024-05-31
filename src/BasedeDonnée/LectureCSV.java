@@ -17,6 +17,10 @@ import com.opencsv.*;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
+import Class.Client;
+import Class.Entrepot;
+import Class.Route;
+
 import java.sql.SQLException;
 
 public class LectureCSV {
