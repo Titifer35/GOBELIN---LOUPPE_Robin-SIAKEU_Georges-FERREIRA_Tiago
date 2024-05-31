@@ -1,3 +1,4 @@
+package AlgoDijkstra;
 import java.util.List;
 
 public class CheminPlusCourt {

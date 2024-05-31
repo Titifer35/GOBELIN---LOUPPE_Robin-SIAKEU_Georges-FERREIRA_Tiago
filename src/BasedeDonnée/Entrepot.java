@@ -1,3 +1,5 @@
+package BasedeDonnée;
+
 
 public class Entrepot {
 	
