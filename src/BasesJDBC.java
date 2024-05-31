@@ -9,7 +9,7 @@ public class BasesJDBC {
     //----------------------------------------------------------------------------------------------------------------------//
     public static void DELETE(String[] args) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:file:database" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         try (Connection connection = DriverManager.getConnection(url, login, password)) {
@@ -27,7 +27,7 @@ public class BasesJDBC {
 //----------------------------------------------------------------------------------------------------------------------//
     public static void CREATE(String[] args) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:file:database" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         try (Connection connection = DriverManager.getConnection(url, login, password)) {

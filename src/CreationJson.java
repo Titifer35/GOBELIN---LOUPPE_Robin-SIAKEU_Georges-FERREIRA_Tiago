@@ -15,7 +15,7 @@ public class CreationJson {
 
 	public int getNbClients() throws ClassNotFoundException, SQLException {
 		Class.forName("org.hsqldb.jdbcDriver");
-		String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+		String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
 		String login = "sa";
 		String password = "";
 		String requete = "SELECT COUNT(mail) AS resultat from CLIENTS WHERE demande != 0";
@@ -33,10 +33,10 @@ public class CreationJson {
 
 	public int getNbEntrepots() throws ClassNotFoundException, SQLException {
 		Class.forName("org.hsqldb.jdbcDriver");
-		String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+		String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
 		String login = "sa";
 		String password = "";
-		String requete = "SELECT COUNT(id_entrepot) AS resultat from ENTREPOTS WHERE disponible = 1";
+		String requete = "SELECT COUNT(Identrepot) AS resultat from ENTREPOTS WHERE disponible = 1";
 		int NbEntrepots = 0;
 		try (Connection connection = DriverManager.getConnection(url, login, password)) {
 			try (Statement statement = connection.createStatement()) {
@@ -51,10 +51,10 @@ public class CreationJson {
 
 	public int getNbSites() throws ClassNotFoundException, SQLException {
 		Class.forName("org.hsqldb.jdbcDriver");
-		String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+		String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
 		String login = "sa";
 		String password = "";
-		String requete = "SELECT COUNT(id_site) AS resultat from SITES WHERE disponible = 1";
+		String requete = "SELECT COUNT(Idsite) AS resultat from SITES WHERE disponible = 1";
 		int NbSites = 0;
 		try (Connection connection = DriverManager.getConnection(url, login, password)) {
 			try (Statement statement = connection.createStatement()) {
@@ -71,7 +71,7 @@ public class CreationJson {
 		List<Integer> resultat = new ArrayList<>();
 		String requete = "SELECT stock FROM ENTREPOTS WHERE disponible = 1";
 		Class.forName("org.hsqldb.jdbcDriver");
-		String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+		String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
 		String login = "sa";
 		String password = "";
 		try (Connection connection = DriverManager.getConnection(url, login, password)) {
@@ -88,16 +88,16 @@ public class CreationJson {
 
 	public List<Integer> getCoutFixeEntrepot() throws SQLException, ClassNotFoundException {
 		List<Integer> coutFixeEntrepot = new ArrayList<>();
-		String requete = "SELECT cout_utilisation FROM ENTREPOTS WHERE disponible = true;";
+		String requete = "SELECT coutfixe FROM ENTREPOTS WHERE disponible = true;";
 		Class.forName("org.hsqldb.jdbcDriver");
-		String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+		String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
 		String login = "sa";
 		String password = "";
 		try (Connection connection = DriverManager.getConnection(url, login, password)) {
 			try (Statement statement = connection.createStatement();
 					ResultSet resultSet = statement.executeQuery(requete)) {
 				while (resultSet.next()) {
-					int cout = resultSet.getInt("cout_utilisation");
+					int cout = resultSet.getInt("coutfixe");
 					coutFixeEntrepot.add(cout);
 				}
 			}
@@ -110,7 +110,7 @@ public class CreationJson {
 		List<Integer> resultat = new ArrayList<>();
 		String requete = "SELECT demande FROM CLIENTS WHERE demande != 0";
 		Class.forName("org.hsqldb.jdbcDriver");
-		String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+		String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
 		String login = "sa";
 		String password = "";
 		try (Connection connection = DriverManager.getConnection(url, login, password)) {
@@ -127,7 +127,7 @@ public class CreationJson {
 	
 	public int [][] getCostmatrix() throws ClassNotFoundException, SQLException{
 		Class.forName("org.hsqldb.jdbcDriver");
-		String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+		String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
 		String login = "sa";
 		String password = "";
 
@@ -138,8 +138,7 @@ public class CreationJson {
 			try (Statement statement = connection.createStatement()) {
 				try (ResultSet resultSet = statement.executeQuery(requete)) {
 					while (resultSet.next()) {
-						sites.add(resultSet.getInt("id_site"));
-//						System.out.println(resultSet.getInt("id_site"));
+						sites.add(resultSet.getInt("Idsite"));
 					}
 				}
 			}
@@ -151,7 +150,7 @@ public class CreationJson {
 			try (Statement statement = connection.createStatement()) {
 				try (ResultSet resultSet = statement.executeQuery(requete)) {
 					while (resultSet.next()) {
-						entrepots_disponibles.add(resultSet.getInt("id_site"));
+						entrepots_disponibles.add(resultSet.getInt("Idsite"));
 					}
 				}
 			}
@@ -162,7 +161,7 @@ public class CreationJson {
 			try (Statement statement = connection.createStatement()) {
 				try (ResultSet resultSet = statement.executeQuery(requete)) {
 					while (resultSet.next()) {
-						clients_demandants.add(resultSet.getInt("id_site"));
+						clients_demandants.add(resultSet.getInt("Idsite"));
 					}
 				}
 			}

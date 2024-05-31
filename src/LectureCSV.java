@@ -32,7 +32,7 @@ public class LectureCSV {
 
     public void importSitesToDatabase(String siteFolder) throws ClassNotFoundException, SQLException, CsvValidationException, NumberFormatException, IOException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         String requete = "";
@@ -57,7 +57,7 @@ public class LectureCSV {
 
     public void importClientsToDatabase(String clientFolder, String bordereau) throws ClassNotFoundException, SQLException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         String requete = "";
@@ -108,7 +108,7 @@ public class LectureCSV {
     
     public void importEntrepotsToDatabase(String warehouseFolder, String manifest) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         String requete = "";
@@ -158,7 +158,7 @@ public class LectureCSV {
 
     public void importRoutesToDatabase(String routesFile) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
-        String url = "jdbc:hsqldb:base" + File.separator + "basic;shutdown=true";
+        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
         String login = "sa";
         String password = "";
         String requete = "";
