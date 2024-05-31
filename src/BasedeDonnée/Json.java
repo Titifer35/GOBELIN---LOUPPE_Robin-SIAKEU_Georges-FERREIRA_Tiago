@@ -1,3 +1,5 @@
+package BasedeDonnée;
+
 import java.util.List;
 
 public class Json {
