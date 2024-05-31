@@ -1,4 +1,4 @@
-package BasedeDonnée;
+package Class;
 
 
 public class Client {
