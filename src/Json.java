@@ -1,6 +1,7 @@
 import java.util.List;
 
 public class Json {
+	
     private List<Integer> CapacityFacility;
     private List<Integer> FixedcostFacility;
     private List<Integer> DemandCustomer;
