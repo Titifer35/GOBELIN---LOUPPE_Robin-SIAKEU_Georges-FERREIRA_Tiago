@@ -1,0 +1,12 @@
+{
+  "CapacityFacility": [],
+  "FixedcostFacility": [],
+  "DemandCustomer": [
+    9,
+    3,
+    2
+  ],
+  "CostMatrix": [],
+  "NumCustomers": 0,
+  "NumFacilityLocation": 3
+}

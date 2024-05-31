@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class BasesJDBC {
     
-    //----------------------------------------------------------------------------------------------------------------------//
+//----------------------------------------------------------------------------------------------------------------------//
     public static void DELETE(String[] args) throws SQLException, ClassNotFoundException {
         Class.forName("org.hsqldb.jdbcDriver");
         String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
@@ -41,7 +41,6 @@ public class BasesJDBC {
                              "nom VARCHAR(30), " +
                              "mail VARCHAR(30), " +
                              "demande INT, " +
-                             "disponible boolean, "+
                              "PRIMARY KEY(Idsite), " +
                              "FOREIGN KEY(Idsite) REFERENCES SITES(Idsite));" +
                              
@@ -49,6 +48,7 @@ public class BasesJDBC {
                              "Identrepot INT PRIMARY KEY, " +
                              "Idsite INT, " +
                              "coutfixe INT, " +
+                             "disponible boolean,"+
                              "stock INT, " +
                              "FOREIGN KEY(Idsite) REFERENCES SITES(Idsite));" +
                              

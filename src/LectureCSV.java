@@ -29,6 +29,7 @@ public class LectureCSV {
         this.routes = new LinkedList<>();
         this.entrepots = new LinkedList<>();
     }
+//----------------------------------------------------------------------------------------------------------------------------------------------//
 
     public void importSitesToDatabase(String siteFolder) throws ClassNotFoundException, SQLException, CsvValidationException, NumberFormatException, IOException {
         Class.forName("org.hsqldb.jdbcDriver");
@@ -54,6 +55,7 @@ public class LectureCSV {
             }
         }
     }
+//----------------------------------------------------------------------------------------------------------------------------------------------//
 
     public void importClientsToDatabase(String clientFolder, String bordereau) throws ClassNotFoundException, SQLException {
         Class.forName("org.hsqldb.jdbcDriver");
