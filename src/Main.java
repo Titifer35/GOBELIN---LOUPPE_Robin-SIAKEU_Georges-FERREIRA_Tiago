@@ -5,6 +5,10 @@ import BasedeDonnée.CreationJson;
 import BasedeDonnée.LectureCSV;
 import Solveur.Solution;
 
+import BasedeDonnée.BasesJDBC;
+import BasedeDonnée.CreationJson;
+import BasedeDonnée.LectureCSV;
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
