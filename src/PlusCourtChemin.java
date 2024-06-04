@@ -70,7 +70,7 @@ public class PlusCourtChemin {
         int distance = pcc.plusCourtChemin(graph, start, end);
 
         System.out.println("La distance la plus courte du site " + start + " au site " + end + " est: " + distance);
-    }
+    } 
 }
 
 
