@@ -121,40 +121,42 @@ public class CreationJson {
 
     public int[][] getMatriceCouts() throws ClassNotFoundException, SQLException {
         Class.forName("org.hsqldb.jdbcDriver");
+
         try (Connection connexion = DriverManager.getConnection(URL, LOGIN, PASSWORD)) {
-            List<Integer> sites = new ArrayList<>();
-            try (Statement declaration = connexion.createStatement();
-                 ResultSet resultat = declaration.executeQuery("SELECT Idsite FROM SITES")) {
-                while (resultat.next()) {
-                    sites.add(resultat.getInt("Idsite"));
-                }
-            }
-            List<Integer> entrepotsDisponibles = new ArrayList<>();
-            try (Statement declaration = connexion.createStatement();
-                 ResultSet resultat = declaration.executeQuery("SELECT Idsite FROM ENTREPOTS WHERE disponible = 1")) {
-                while (resultat.next()) {
-                    entrepotsDisponibles.add(resultat.getInt("Idsite"));
-                }
-            }
-            List<Integer> clientsDemandants = new ArrayList<>();
-            try (Statement declaration = connexion.createStatement();
-                 ResultSet resultat = declaration.executeQuery("SELECT Idsite FROM CLIENTS WHERE demande != 0")) {
-                while (resultat.next()) {
-                    clientsDemandants.add(resultat.getInt("Idsite"));
-                }
-            }
+            List<Integer> sites = recupererIdSites(connexion, "SELECT Idsite FROM SITES");
+            List<Integer> entrepotsDisponibles = recupererIdSites(connexion, "SELECT Idsite FROM ENTREPOTS WHERE disponible = 1");
+            List<Integer> clientsDemandants = recupererIdSites(connexion, "SELECT Idsite FROM CLIENTS WHERE demande != 0");
+
             CheminPlusCourt cheminPlusCourt = new CheminPlusCourt();
-            int[][] matriceTotale = cheminPlusCourt.plus_court_chemin(sites);
-            int[][] matriceCouts = new int[entrepotsDisponibles.size()][clientsDemandants.size()];
-            for (int i = 0; i < entrepotsDisponibles.size(); i++) {
-                for (int j = 0; j < clientsDemandants.size(); j++) {
-                    matriceCouts[i][j] = matriceTotale[entrepotsDisponibles.get(i) - 1][clientsDemandants.get(j) - 1];
-                }
-            }
-            return matriceCouts;
+            int[][] matriceTotale = cheminPlusCourt.calculerMatriceDesCheminsLesPlusCourts(sites);
+
+            return construireMatriceCouts(entrepotsDisponibles, clientsDemandants, matriceTotale);
         }
     }
 
+    // Méthode pour récupérer les IDs des sites d'une requête SQL donnée
+    private List<Integer> recupererIdSites(Connection connexion, String requete) throws SQLException {
+        List<Integer> ids = new ArrayList<>();
+        try (Statement declaration = connexion.createStatement();
+             ResultSet resultat = declaration.executeQuery(requete)) {
+            while (resultat.next()) {
+                ids.add(resultat.getInt("Idsite"));
+            }
+        }
+        return ids;
+    }
+
+    // Construire la matrice des coûts spécifique entre entrepôts et clients
+    private int[][] construireMatriceCouts(List<Integer> entrepots, List<Integer> clients, int[][] matriceTotale) {
+        int[][] matriceCouts = new int[entrepots.size()][clients.size()];
+        for (int i = 0; i < entrepots.size(); i++) {
+            for (int j = 0; j < clients.size(); j++) {
+                // Attention à l'indexation des listes pour correspondre aux indices de la matrice
+                matriceCouts[i][j] = matriceTotale[entrepots.get(i)][clients.get(j)];
+            }
+        }
+        return matriceCouts;
+    }
 //--------------------------------------------------------------------------------------------------------------------//
 
     public static void main(String[] args) throws Exception {

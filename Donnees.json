@@ -1,12 +1,12 @@
 {
-  "CapacityFacility": [],
-  "FixedcostFacility": [],
-  "DemandCustomer": [
+  "capacity_facility": [],
+  "fixed_cost_facility": [],
+  "demand_customer": [
     9,
     3,
     2
   ],
-  "CostMatrix": [],
-  "NumCustomers": 0,
-  "NumFacilityLocation": 3
+  "cost_matrix": [],
+  "num_customers": 0,
+  "num_facility_locations": 3
 }

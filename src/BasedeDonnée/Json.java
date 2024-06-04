@@ -4,67 +4,67 @@ import java.util.List;
 
 public class Json {
 	
-    private List<Integer> CapacityFacility;
-    private List<Integer> FixedcostFacility;
-    private List<Integer> DemandCustomer;
-    private int[][] CostMatrix;
-    private int NumCustomers;
-    private int NumFacilityLocation;
+    private List<Integer> capacity_facility;
+    private List<Integer> fixed_cost_facility;
+    private List<Integer> demand_customer;
+    private int[][] cost_matrix;
+    private int num_customers;
+    private int num_facility_locations;
 
-    public Json(List<Integer> CapacityFacility, List<Integer> FixedcostFacility, List<Integer> DemandCustomer, int[][] CostMatrix, int NumCustomers, int NumFacilityLocation) {
-        this.CapacityFacility = CapacityFacility;
-        this.FixedcostFacility = FixedcostFacility;
-        this.DemandCustomer = DemandCustomer;
-        this.CostMatrix = CostMatrix;
-        this.NumCustomers = NumCustomers;
-        this.NumFacilityLocation = NumFacilityLocation;
+    public Json(List<Integer> capacity_facility, List<Integer> fixed_cost_facility, List<Integer> demand_customer, int[][] cost_matrix, int num_customers, int num_facility_locations) {
+        this.capacity_facility = capacity_facility;
+        this.fixed_cost_facility = fixed_cost_facility;
+        this.demand_customer = demand_customer;
+        this.cost_matrix = cost_matrix;
+        this.num_customers = num_customers;
+        this.num_facility_locations = num_facility_locations;
     }
 
     public List<Integer> getCapacityFacility() {
-        return CapacityFacility;
+        return capacity_facility;
     }
 
     public List<Integer> getFixedcostFacility() {
-        return FixedcostFacility;
+        return fixed_cost_facility;
     }
 
     public List<Integer> getDemandCustomerr() {
-        return DemandCustomer;
+        return demand_customer;
     }
 
     public int[][] getCostMatrix() {
-        return CostMatrix;
+        return cost_matrix;
     }
 
     public int getNumCustomers() {
-        return NumCustomers;
+        return num_customers;
     }
 
     public int getNumFacilityLocation() {
-        return NumFacilityLocation;
+        return num_facility_locations;
     }
 
-    public void setCapacityFacility(List<Integer> CapacityFacility) {
-        this.CapacityFacility = CapacityFacility;
+    public void setCapacityFacility(List<Integer> capacity_facility) {
+        this.capacity_facility = capacity_facility;
     }
 
-    public void setFixedcostFacility(List<Integer> FixedcostFacility) {
-        this.FixedcostFacility = FixedcostFacility;
+    public void setFixedcostFacility(List<Integer> fixed_cost_facility) {
+        this.fixed_cost_facility = fixed_cost_facility;
     }
 
-    public void setDemandCustomer(List<Integer> DemandCustomer) {
-        this.DemandCustomer = DemandCustomer;
+    public void setDemandCustomer(List<Integer> demand_customer) {
+        this.demand_customer = demand_customer;
     }
 
-    public void setCostMatrix(int[][] CostMatrix) {
-        this.CostMatrix = CostMatrix;
+    public void setCostMatrix(int[][] cost_matrix) {
+        this.cost_matrix = cost_matrix;
     }
 
-    public void setNumCustomers(int NumCustomers) {
-        this.NumCustomers = NumCustomers;
+    public void setNumCustomers(int num_customers) {
+        this.num_customers = num_customers;
     }
 
-    public void setNumFacilityLocation(int NumFacilityLocation) {
-        this.NumFacilityLocation = NumFacilityLocation;
+    public void setNumFacilityLocation(int num_facility_locations) {
+        this.num_facility_locations = num_facility_locations;
     }
 }

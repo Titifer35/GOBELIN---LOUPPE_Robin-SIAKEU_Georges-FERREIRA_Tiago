@@ -1,4 +1,5 @@
 package BasedeDonnée;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,11 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
-
 import com.opencsv.*;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-
 import Class.Client;
 import Class.Entrepot;
 import Class.Route;
@@ -142,11 +141,11 @@ public class LectureCSV {
             String[] nextLine;
             while ((nextLine = csvReader.readNext()) != null) {
                 int identrepot = Integer.parseInt(nextLine[0]);
-                int id_site = Integer.parseInt(nextLine[1]);
+                int Idsite = Integer.parseInt(nextLine[1]);
                 int utilization_cost = Integer.parseInt(nextLine[2]);
                 int stock = Integer.parseInt(nextLine[3]);
                 boolean available = openEntrepots.contains(identrepot);
-                this.entrepots.add(new Entrepot(identrepot, id_site, utilization_cost, stock, available));
+                this.entrepots.add(new Entrepot(identrepot, Idsite, utilization_cost, stock, available));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,7 +159,116 @@ public class LectureCSV {
             }
         }
     }
-   
+  
+    
+    
+//    public void importEntrepotsToDatabase(String warehouseFolder, String manifest) throws SQLException, ClassNotFoundException {
+//        Class.forName("org.hsqldb.jdbcDriver");
+//        String url = "jdbc:hsqldb:database" + File.separator + "basic;shutdown=true";
+//        String login = "sa";
+//        String password = "";
+//        String requete = "";
+//        List<Integer> openEntrepots = new LinkedList<>();
+//        BufferedReader reader = null;
+//        FileReader fileReader = null;
+//        CSVReader csvReader = null;
+//        Connection connection = null;
+//        Statement statement = null;
+//        String line;
+//
+//        try {
+//            reader = new BufferedReader(new FileReader(manifest));
+//            while ((line = reader.readLine()) != null) {
+//                if (!line.isEmpty()) {
+//                    String[] availability = line.split(",");
+//                    for (String id : availability) {
+//                        try {
+//                            int parsedId = Integer.parseInt(id.trim()); // Ensure to trim spaces
+//                            openEntrepots.add(parsedId);
+//                        } catch (NumberFormatException e) {
+//                            System.err.println("Invalid number format in manifest: " + id);
+//                            throw new NumberFormatException("Invalid number format in manifest: " + id);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return;  // Handle exception appropriately
+//        } finally {
+//            try {
+//                if (reader != null) reader.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        try {
+//            CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+//            fileReader = new FileReader(warehouseFolder);
+//            csvReader = new CSVReaderBuilder(fileReader)
+//                .withCSVParser(parser)
+//                .withSkipLines(1)
+//                .build();
+//            
+//            connection = DriverManager.getConnection(url, "sa", "");
+//            connection.setAutoCommit(false);
+//            statement = connection.createStatement();
+//
+//            String[] nextLine;
+//            while ((nextLine = csvReader.readNext()) != null) {
+//                try {
+//                    int identrepot = Integer.parseInt(nextLine[0].trim());
+//                    int id_site = Integer.parseInt(nextLine[1].trim());
+//                    int utilization_cost = Integer.parseInt(nextLine[2].trim());
+//                    int stock = Integer.parseInt(nextLine[3].trim());
+//                    boolean available = openEntrepots.contains(identrepot);
+//
+//                    requete = "INSERT INTO ENTREPOTS(Identrepot, Idsite, stock, coutfixe, disponible) VALUES (" +
+//                        identrepot + "," + id_site + "," + stock + "," + utilization_cost + "," + (available ? 1 : 0) + ");";
+//                    statement.addBatch(requete);
+//                } catch (NumberFormatException e) {
+//                    System.err.println("Invalid number format in CSV: " + String.join(";", nextLine));
+//                }
+//            }
+//            statement.executeBatch();
+//            connection.commit();
+//
+//        } catch (IOException | CsvValidationException | SQLException e) {
+//            e.printStackTrace();
+//            try {
+//                if (connection != null) {
+//                    connection.rollback();
+//                }
+//            } catch (SQLException rollbackException) {
+//                rollbackException.printStackTrace();
+//            }
+//        } finally {
+//            try {
+//                if (csvReader != null) csvReader.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                if (fileReader != null) fileReader.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                if (statement != null) statement.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                if (connection != null) connection.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
+    
+    
 //----------------------------------------------------------------------------------------------------------------------------------------------//
 
     public void importRoutesToDatabase(String routesFile) throws SQLException, ClassNotFoundException {

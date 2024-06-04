@@ -3,6 +3,7 @@ import java.util.Scanner;
 import BasedeDonnée.BasesJDBC;
 import BasedeDonnée.CreationJson;
 import BasedeDonnée.LectureCSV;
+import Solveur.Solution;
 
 public class Main {
 
@@ -81,7 +82,7 @@ public class Main {
         }
 
         CreationJson.main(null); 
-        
+        Solution.main(null);
 
         System.out.println("\nVoulez-vous valider la solution ?");
         while (true) {
