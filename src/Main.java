@@ -5,9 +5,6 @@ import BasedeDonnée.CreationJson;
 import BasedeDonnée.LectureCSV;
 import Solveur.Solution;
 
-import BasedeDonnée.BasesJDBC;
-import BasedeDonnée.CreationJson;
-import BasedeDonnée.LectureCSV;
 
 public class Main {
 
@@ -23,11 +20,8 @@ public class Main {
         LectureCSV gestionnaireDeCSV = new LectureCSV();
         String dossierSelectionne = "";
         String nomDuBordereau = "";
-
         BasesJDBC.main(null);
         
-        
-
         while (choixDeLUtilisateur < 1 || choixDeLUtilisateur > 3) {
             System.out.println("Choisissez le fichier sur lequel vous souhaitez travailler :");
             System.out.println(" 1 : Petite taille");
@@ -95,6 +89,7 @@ public class Main {
                 System.out.println("Veuillez entrer un nombre valide !");
                 scannerUtilisateur.next();
             }
+                        
             choixDeLUtilisateur = scannerUtilisateur.nextInt();
             if (choixDeLUtilisateur == 1) {
                 System.out.println("Merci d'avoir validé notre solution.");

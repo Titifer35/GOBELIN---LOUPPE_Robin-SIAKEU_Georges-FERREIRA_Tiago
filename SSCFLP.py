@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
 
     # Opening JSON file
-    with open("Donnees.json") as openfile:
+    with open(inputfilename, 'r') as openfile:
         # Reading from json file
         data = json.load(openfile)
 
@@ -72,9 +72,9 @@ if __name__ == "__main__":
 
     solution["deliveriesfor_customer"] = [ j for i in set_I for j in set_J if value(x_var[i][j]) >= 0.9]
 
-     print ("Objective value SSCFLP = ", value(SSCFLP.objective))
+    print ("Objective value SSCFLP = ", value(SSCFLP.objective))
     solution["objective"] = value(SSCFLP.objective)
     json_object = json.dumps(solution, indent=4)
 
-    with open("Reponse", "w") as outfile:
+    with open(outputfilename, "w") as outfile:
            outfile.write(json_object)

@@ -47,11 +47,12 @@ public class BasesJDBC {
                              "FOREIGN KEY(Idsite) REFERENCES SITES(Idsite));" +
                              
                              "CREATE TABLE ENTREPOTS (" +
-                             "Identrepot INT PRIMARY KEY, " +
+                             "Identrepot INT, " +
                              "Idsite INT, " +
                              "coutfixe INT, " +
                              "disponible boolean,"+
                              "stock INT, " +
+                             "PRIMARY KEY (Identrepot), "+
                              "FOREIGN KEY(Idsite) REFERENCES SITES(Idsite));" +
                              
                              "CREATE TABLE ROUTES (" +
