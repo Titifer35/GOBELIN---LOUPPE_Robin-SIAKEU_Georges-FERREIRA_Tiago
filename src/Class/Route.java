@@ -49,9 +49,9 @@ public class Route {
 		return this.yd; 
 	}
 
-	public int getDistance() {
+	public double getDistance() {
 		// Calculate distance (Euclidean distance)
-		return (int) Math.sqrt(Math.pow((xd - xo), 2) + Math.pow((yd - yo), 2));
+		return  Math.ceil(Math.sqrt(Math.pow((xd - xo), 2) + Math.pow((yd - yo), 2)));
 	}
 	
 }
